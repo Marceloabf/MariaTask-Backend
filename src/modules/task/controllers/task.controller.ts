@@ -1,4 +1,16 @@
-import { Controller, Post, Get, Param, Body, Put, Delete, UseGuards, Request } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Param,
+  Body,
+  Put,
+  Delete,
+  UseGuards,
+  Request,
+  Query,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { TaskService } from '../services/task.service';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { UpdateTaskDto } from '../dto/update-task.dto';
@@ -13,19 +25,42 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @ApiOperation({ summary: 'Cria uma nova tarefa' })
-  @ApiResponse({ status: 201, description: 'Tarefa criada com sucesso', type: Task })
+  @ApiResponse({
+    status: 201,
+    description: 'Tarefa criada com sucesso',
+    type: Task,
+  })
   @Post()
   create(@Body() createTaskDto: CreateTaskDto, @Request() req): Promise<Task> {
-    const userId = req.user.userId; 
+    const userId = req.user.userId;
     return this.taskService.create(createTaskDto, userId);
   }
 
-  @ApiOperation({ summary: 'Lista todas as tarefas de um usuário' })
-  @ApiResponse({ status: 200, description: 'Lista de tarefas', type: [Task] })
   @Get()
-  async findAllByUserId(@Request() req): Promise<Task[]> {
+  @ApiOperation({ summary: 'Lista todas as tarefas do usuário com paginação, ordenação e filtros' })
+  async findAllById(
+    @Query('userId', ParseIntPipe) userId: number,
+    @Query('page', ParseIntPipe) page = 1,
+    @Query('limit', ParseIntPipe) limit = 10,
+    @Query('status') status?: string
+  ): Promise<{ data: Task[]; total: number; page: number; limit: number }> {
+    return this.taskService.findAllById(userId, page, limit, status);
+  }
+
+  @ApiOperation({
+    summary: 'Retorna a quantidade de tarefas em cada status do usuário',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Quantidade de tarefas por status',
+    type: Object,
+  })
+  @Get('reports')
+  async getTaskCountByStatus(
+    @Request() req,
+  ) {
     const userId = req.user.userId;
-    return this.taskService.findAllById(userId);
+    return this.taskService.getTaskReports(userId);
   }
 
   @ApiOperation({ summary: 'Busca uma tarefa por ID' })

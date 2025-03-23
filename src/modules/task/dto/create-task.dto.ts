@@ -11,7 +11,6 @@ export class CreateTaskDto {
   description: string;
 
   @ApiProperty({ description: 'Status da tarefa', example: 'PENDING', enum: ['PENDING', 'IN_PROGRESS', 'DONE'] })
-  @IsOptional()
   @IsEnum(['PENDING', 'IN_PROGRESS', 'DONE'])
   status?: string;
 
