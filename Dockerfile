@@ -28,6 +28,7 @@ COPY --from=build /app/package*.json /app/
 # Copie os arquivos necessários do container de construção
 COPY --from=build /app/dist /app/dist
 COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build /app/.env /app/.env
 
 # Exponha a porta que o app vai rodar
 EXPOSE 3000

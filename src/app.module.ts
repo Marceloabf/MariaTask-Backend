@@ -1,24 +1,16 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Task } from './modules/task/entities/task.entity';
-import { User } from './modules/user/entities/user.entity';
-import { UserModule } from './modules/user/user.module';
-import { TaskModule } from './modules/task/task.module';
+import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { TaskModule } from './modules/task/task.module';
+import { UserModule } from './modules/user/user.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'siricascudo1*', 
-      database: 'maria_task',
-      entities: [User, Task],
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
-    TypeOrmModule.forFeature([Task,User]),
+    DatabaseModule,
     UserModule,
     TaskModule,
     AuthModule
