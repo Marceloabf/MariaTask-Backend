@@ -5,7 +5,8 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
- Thought for 1 second### Task Management API
+-----MARIA TASK API -------
+-----NestJs + Swagger------
 
 A RESTful API for a task management application (To-Do List) built with NestJS, featuring user authentication, task CRUD operations, and comprehensive API documentation.
 
@@ -15,7 +16,8 @@ This project was developed as a full-stack web application for task management w
 
 - **User Authentication**: Secure login and registration using JWT and Bcrypt
 - **Task Management**: Create, read, update, delete, and mark tasks as complete
-- **Task Filtering**: Filter tasks by status (pending, completed)
+- **Task Filtering**: Filter tasks by status (pending, completed, in progress)
+- **Task Progress Overview**: Displays the percentage of tasks in different statuses
 - **API Documentation**: Complete Swagger documentation
 - **Docker Integration**: Containerized application for easy setup and deployment
 
@@ -51,8 +53,8 @@ This project was developed as a full-stack web application for task management w
 1. Clone the repository:
 
 ```shellscript
-git clone https://github.com/your-username/task-management-api.git
-cd task-management-api
+git clone https://github.com/Marceloabf/MariaTask-Backend
+cd MariaTask-Backend
 ```
 
 
@@ -89,7 +91,7 @@ docker-compose up -d
 5. The API will be available at:
 
 ```plaintext
-http://localhost:3000/api
+http://localhost:3000
 ```
 
 
@@ -98,9 +100,6 @@ http://localhost:3000/api
 ```plaintext
 http://localhost:3000/api/docs
 ```
-
-
-
 
 ## Environment Variables and Security
 
@@ -177,7 +176,6 @@ This project uses TypeORM with the following configuration:
 - Set `synchronize: false` to prevent automatic schema changes
 - Use migrations to manage database schema changes in a controlled manner
 - Implement a proper migration strategy for version control of your database schema
-
 
 
 ## Testing
