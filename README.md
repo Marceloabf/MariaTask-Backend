@@ -5,8 +5,7 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
------MARIA TASK API -------
------NestJs + Swagger------
+MARIA TASK API - NestJs + Swagger
 
 A RESTful API for a task management application (To-Do List) built with NestJS, featuring user authentication, task CRUD operations, and comprehensive API documentation.
 
